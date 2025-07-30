@@ -5,12 +5,17 @@
     //that will be mapped to named parameters in the matched route. 
     //the route /album[/:action[/:id]] for example
     use Laminas\Router\Http\Segment;
-    use Laminas\ServiceManager\Factory\InvokableFactory;
+    
+    //use Laminas\ServiceManager\Factory\InvokableFactory;
+    use Laminas\ServiceManager\AbstractFactory\ReflectionBasedAbstractFactory;
+
+    use Album\Model\AlbumTableFactory;
 
     return [
         'controllers' => [
             'factories' => [
-                Controller\AlbumController::class => InvokableFactory::class,
+                //Controller\AlbumController::class => InvokableFactory::class,
+                Controller\AlbumController::class => ReflectionBasedAbstractFactory::class
             ],
         ],
 
@@ -40,6 +45,12 @@
                 'album' => __DIR__ . '/../view',
             ],
         ],
+
+        'service_manager' => [
+            'factories' => [
+                Model\AlbumTable::class => AlbumTableFactory::class,
+            ],
+        ]
     ];
 
 
