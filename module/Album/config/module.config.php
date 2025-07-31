@@ -28,8 +28,8 @@
                         //the square brackets indicate that a segment is optional
                         'route' => '/album[/:action[/:id]]',
                         'constraints' => [
-                            'action' => '[a-zA-z][a-zA-z0-9_-]*',
-                            'id' => '[0,9]+',
+                            'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            'id' => '[0-9]+',
                         ],
                         'defaults' => [
                             'controller' => Controller\AlbumController::class,
