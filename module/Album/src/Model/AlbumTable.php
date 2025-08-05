@@ -5,6 +5,11 @@ namespace Album\Model;
 use RuntimeException;
 use Laminas\Db\TableGateway\TableGatewayInterface;
 
+use Laminas\Db\ResultSet\ResultSet;
+use Laminas\Db\Sql\Select;
+use Laminas\Paginator\Adapter\LaminasDb\DbSelect;
+use Laminas\Paginator\Paginator;
+
 class AlbumTable
 {
     private $tableGateway;
@@ -14,9 +19,39 @@ class AlbumTable
         $this->tableGateway = $tableGateway;
     }
 
-    public function fetchAll()
+    public function fetchAll($paginated = false)
     {
+        if($paginated){
+            return $this->fetchPaginatedResults();
+        }
         return $this->tableGateway->select();
+    }
+    /**
+     * This will return a fully configured Paginator instance 
+     * using a DbSelect adapter. We've already told the DbSelect
+     * adapter to use our created Select object, to use the adapter
+     * that the TableGateway object uses, and also how to hydrate
+     * the result into a Album entity in the same fashion as the
+     * TableGateway does. This means that our executed and returned 
+     * paginator results will return Album objects in exactly the same 
+     * fashion as the non-paginated results.
+     */
+    private function fetchPaginatedResults()
+    {
+        //cria um novo Select object pra table
+        $select = new Select($this->tableGateway->getTable());
+        //cria um novo result set baseado em Album
+        $resultSetPrototype = new ResultSet();
+        $resultSetPrototype->setArrayObjectPrototype(new Album());
+
+        //cria um novo pagination adapter object
+        $paginatorAdapter = new DbSelect(
+            $select,
+            $this->tableGateway->getAdapter(),
+            $resultSetPrototype
+        );
+
+        return new Paginator($paginatorAdapter);
     }
 
     public function getAlbum($id)

@@ -18,7 +18,7 @@ We always use the escapeHtml() view helper to help protect ourselves from Cross 
         <th>&nbsp;</th><!--para o campo com os links de edit e delete-->
     </tr>
 
-    <?php foreach ($albums as $album): ?>
+    <?php foreach ($paginator as $album): ?><!--antes da paginação ser implementada esse for iterava sobre $albums-->
         <tr>
             <td><?= $this->escapeHtml($album->title) ?></td>
             <td><?= $this->escapeHtml($album->artist) ?></td>
@@ -30,3 +30,14 @@ We always use the escapeHtml() view helper to help protect ourselves from Cross 
     <?php endforeach; ?>
 
 </table>
+
+    <!--Paginator-->
+<?= $this->paginationControl(
+    $this->paginator,
+    //scrolling style
+    'sliding',
+    //the partial to use to render the control
+    'partial/paginator',
+    //the route to link to when a user clicks a control link:
+    ['route' => 'album']
+) ?>
