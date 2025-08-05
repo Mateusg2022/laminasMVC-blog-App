@@ -19,4 +19,5 @@ return [
     'Laminas\Validator',
     'Application',
     'Album', //our new module
+    'Blog', //the module Blog inDepth tutorial
 ];
