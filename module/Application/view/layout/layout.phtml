@@ -45,22 +45,32 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto">
+                    <?= $this->navigation('navigation')
+                        ->menu()
+                        ->setMinDepth(0)
+                        ->setMaxDepth(0)
+                        ->setUlClass('nav navbar-nav') ?>
+                        
+                    <!--nao precis a mais -->
+                    <!--
+                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a
-                                class="nav-link active"
-                                aria-current="page"
-                                href="<?= $this->url('home') ?>"
-                            >Home
-                            </a>
+                            <a class="nav-link active" href="<?= $this->url('home') ?>">Home</a>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
         </nav>
         <div class="container">
+            <!-- ajudante de navegação -->
+            <?= $this->navigation('navigation')
+                        ->breadcrumbs()
+                        ->setMinDepth(0)
+                        ->setPartial('partial/breadcrumb') ?><!--diz ao Laminas para renderizar o breadcrumb usando um template personalizado-->
             <?= $this->content ?>
+            
             <hr>
+            
             <footer>
                 <p>
                     &copy; <?= date('Y') ?>

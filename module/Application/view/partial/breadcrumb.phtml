@@ -1,0 +1,25 @@
+<nav aria-label="breadcrumb"> <!--indica trilha de navegação do bootstrap-->>
+    <ol class="breadcrumb">
+        <?php
+        //itera pelas paginas
+        foreach ($this->pages as $key => $page): ?>
+            <?php
+            //se nao for a ultima pagina, adiciona um link e um separador
+            if ($key < count($this->pages) - 1):
+            ?>
+                <li class="breadcrumb-item">
+                    <a href="<?= $page->getHref() ?>">
+                        <?= $page->getLabel() ?>
+                    </a>
+                </li>
+            <?php
+            //se nao, mostra o nome
+            else:
+                ?>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <?= $page->getLabel() ?>
+                </li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </ol>
+</nav>

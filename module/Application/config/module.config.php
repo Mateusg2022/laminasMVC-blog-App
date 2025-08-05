@@ -9,9 +9,39 @@ use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Segment;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
-use Album\Controller\AlbumController;
+// use Album\Controller\AlbumController;
 
 return [
+    'navigation' => [
+        'default' => [
+            [
+                'label' => 'Home',
+                'route' => 'home',
+            ],
+            [
+                'label' => 'Album',
+                'route' => 'album',
+                'pages' => [
+                    [
+                        'label' => 'Add',
+                        'route' => 'album',
+                        'action' => 'add',
+                    ],
+                    [
+                        'label' => 'Edit',
+                        'route' => 'album',
+                        'action' => 'edit',
+                    ],
+                    [
+                        'label'=> 'Delete',
+                        'route' => 'album',
+                        'action'=> 'delete',
+                    ],
+                ],
+            ],
+        ],
+    ],
+    /** */
     'router' => [
         'routes' => [
             'home' => [
@@ -20,8 +50,8 @@ return [
                 'options' => [
                     'route'    => '/',
                     'defaults' => [
-                        //'controller' => Controller\IndexController::class,
-                        'controller' => AlbumController::class,
+                        'controller' => Controller\IndexController::class,
+                        //'controller' => AlbumController::class,
                         'action'     => 'index',
                     ],
                 ],
